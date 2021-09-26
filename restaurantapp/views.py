@@ -13,6 +13,7 @@ class ClientV(View):
             context={'clients': Table.objects.all()}
         )
 
+
 class MenuView(View):
     def get(request):
         return render(
