@@ -10,5 +10,5 @@ class ClientV(View):
         return render(
             request,
             template_name='Hello.html',
-            context={'Client': Client.objects.all()}
+            context={'client': Client.objects.all()}
         )

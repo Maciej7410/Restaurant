@@ -40,4 +40,4 @@ class Reservation(Model):
     date_of_reservation = DateField()
     start_time = DateTimeField()
     end_time = DateTimeField()
-    number_of_person = IntegerField()
+    test = CharField()
