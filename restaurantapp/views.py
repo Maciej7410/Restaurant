@@ -6,7 +6,7 @@ from restaurantapp.models import Client
 # Create your views here.
 
 class ClientV(View):
-    def get(self, request):
+    def get(request):
         return render(
             request,
             template_name='Hello.html',
