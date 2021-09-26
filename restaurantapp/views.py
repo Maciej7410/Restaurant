@@ -3,7 +3,6 @@ from django.views import View
 from restaurantapp.models import Client
 
 
-# Create your views here.
 
 class ClientV(View):
     def get(request):

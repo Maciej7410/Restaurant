@@ -5,7 +5,7 @@ from django.db.models import (Model,
 from django.contrib.auth.models import User
 
 
-# dodać pola wymagane i nie wymagane.
+
 
 class Client(Model):
     user = OneToOneField(User, on_delete=CASCADE)
