@@ -10,14 +10,21 @@
 
 </head>
 <body>
-    <div class="container" style="float: left; font-size: 40px;">
+    <div class="container">
         <button type="button" class="btn btn-outline-primary">Home</button>
         <button type="button" class="btn btn-outline-secondary">Menu</button>
         <button type="button" class="btn btn-outline-success">Reservation</button>
     </div>
-    <div class="login", style="float: right; padding-top:; ">
+    <div class="login", style="float: right; ">
         <button type="button" class="btn btn-outline-success">Sing in</button>
         <button type="button" class="btn btn-outline-success">Sing up</button>
+    </div>
+    <div style="float: inherit">
+        {% block content %}
+            {% for klient in clients %}
+                <h1>{{ klient.description}}</h1>
+            {% endfor %}
+        {% endblock %}
     </div>
 </body>
 </html>
