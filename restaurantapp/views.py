@@ -21,3 +21,12 @@ class MenuView(View):
             template_name='Menu.html',
             context={'menu': 'Menu'}
         )
+
+
+class MainView(View):
+    def get(request):
+        return render(
+            request,
+            template_name='Main.html',
+            context={'main': ''}
+        )

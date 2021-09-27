@@ -1,6 +1,7 @@
 from django.db.models import (Model,
                               CharField, IntegerField, ForeignKey,
-                              DateField, DateTimeField, DO_NOTHING, TextField, FloatField, OneToOneField, CASCADE)
+                              DateField, DateTimeField, DO_NOTHING, TextField, FloatField,
+                              OneToOneField, CASCADE, FileField)
 
 from django.contrib.auth.models import User
 
@@ -40,4 +41,5 @@ class Reservation(Model):
     date_of_reservation = DateField()
     start_time = DateTimeField()
     end_time = DateTimeField()
+
 
