@@ -1,9 +1,18 @@
 {#{% extends 'Hello.html' %}#}
 {% block content %}
+    <div>
     <h1>Welcome in Menu</h1>
+    </div>
+    <div style="clear: both"></div>
+    <div style="width: 300px; float: left">
     {% for category in Categories %}
     <p><a href="Category/{{ category.id }}"> {{ category.name }}</a></p>
     {% endfor %}
+    </div>
+    <div style="width: 700px; float:left ">
+        {% block dishes %}{% endblock %}
+    </div>
+    <div style="clear: both"></div>
 
 
 {% endblock %}

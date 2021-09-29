@@ -1,6 +1,6 @@
 from django.db.models import (Model,
                               CharField, IntegerField, ForeignKey,
-                              DateField, DateTimeField, DO_NOTHING, TextField, FloatField, OneToOneField, CASCADE)
+                              DateField, DateTimeField, DO_NOTHING, TextField, DecimalField, OneToOneField, CASCADE)
 
 from django.contrib.auth.models import User
 
@@ -20,13 +20,17 @@ class Table(Model):
 
 class Category(Model):
     name = CharField(max_length=25)
+    def __str__(self):
+        return self.name
 
 
 class Dish(Model):
     category = ForeignKey(Category, on_delete=DO_NOTHING)
-    name = CharField(max_length=20)
-    price = FloatField()
-    description = TextField()
+    name = CharField(max_length=40)
+    price = DecimalField(max_digits=5, decimal_places=2)
+    description = TextField(blank=True)
+    def __str__(self):
+        return self.name
 
 
 class OrderDish(Model):

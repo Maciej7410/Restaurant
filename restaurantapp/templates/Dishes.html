@@ -1,0 +1,13 @@
+{% extends 'Menu.html' %}
+
+{% block dishes %}
+    {% if dishes %}
+        <h1>{{ dishes.name }}</h1>
+        <p>{{ dishes.category }}</p>
+        <p>{{ dishes.price }}</p>
+        <p>{{ dishes.description }}</p>
+
+    {% else %}
+        <p>Nie ma produktu o takim id.</p>
+    {% endif %}
+{% endblock %}

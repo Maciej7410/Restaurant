@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 from django.views import View
-from restaurantapp.models import Table, Category
+from restaurantapp.models import Table, Category, Dish
 
 
 # Create your views here.
@@ -13,7 +13,17 @@ class ClientV(View):
             context={'clients': Table.objects.all()}
         )
 
-def MenuView(request):
+
+def CategoryView(request):
     Categories = Category.objects.all()
-    dane = {'Categories' : Categories}
+    dane = {'Categories': Categories}
     return render(request, 'Menu.html', dane)
+
+
+
+
+def DishView(request, id):
+    dishes = Dish.objects.get(pk=id)
+    Categories = Category.objects.all()
+    dane = {'dishes': dishes, 'categories': Categories}
+    return render(request, 'Dishes.html', dane)
