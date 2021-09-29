@@ -1,0 +1,9 @@
+{#{% extends 'Hello.html' %}#}
+{% block content %}
+    <h1>Welcome in Menu</h1>
+    {% for category in Categories %}
+    <p><a href="Category/{{ category.id }}"> {{ category.name }}</a></p>
+    {% endfor %}
+
+
+{% endblock %}
