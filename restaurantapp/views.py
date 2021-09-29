@@ -11,3 +11,10 @@ class ClientV(View):
             template_name='Hello.html',
             context={'client': Client.objects.all()}
         )
+class MenuView(View):
+    def get(request):
+        return render(
+            request,
+            template_name='Menu.html',
+            context={'menu': 'Menu'}
+        )
