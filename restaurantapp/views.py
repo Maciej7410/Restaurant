@@ -36,5 +36,4 @@ def dish_view(request, id):
     dane = {'dishes': dishes, 'categories': categories}
     return render(request, 'Dishes.html', dane)
 
-def ordereddish_view(request, id):
-    dishes = Dish.objects.POST(pk=id)
+
