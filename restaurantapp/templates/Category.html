@@ -1,0 +1,13 @@
+{% extends 'Menu.html' %}
+
+{% block dishes %}
+    {% if dish_category %}
+        {% for dish in dish_category %}
+
+        <p><a href="{% url 'dish_view' dish.id %}">{{ dish.name }} </a> {{ dish.price }}</p>
+            <form action="...">
+                <input type="checkbox" name="nazwa" value="wartość">Dodaj
+            </form>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

@@ -5,14 +5,15 @@
     </div>
     <div style="clear: both"></div>
     <div style="width: 300px; float: left">
-    {% for category in Categories %}
-    <p><a href="Category/{{ category.id }}"> {{ category.name }}</a></p>
+    {% for dish in categories %}
+        <p><a href="{% url 'category_view' dish.id%}"> {{ dish.name }}</a></p>
     {% endfor %}
     </div>
     <div style="width: 700px; float:left ">
-        {% block dishes %}{% endblock %}
+        {% block dishes %}  {% endblock %}
     </div>
     <div style="clear: both"></div>
+
 
 
 {% endblock %}
