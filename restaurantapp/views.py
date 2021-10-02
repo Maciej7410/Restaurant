@@ -15,7 +15,7 @@ class ClientV(View):
 
 
 class MenuView(View):
-    def get(request):
+    def get(self,request):
         return render(
             request,
             template_name='Menu.html',
@@ -24,9 +24,19 @@ class MenuView(View):
 
 
 class MainView(View):
-    def get(request):
+    def get(self, request):
         return render(
             request,
             template_name='Main.html',
             context={'main': ''}
         )
+
+class SingIn(View):
+    def get(self, request):
+        return render(
+            request,
+            template_name='Singin.html',
+            context={'Singin': ''}
+        )
+    def post(self, request):
+        pass
