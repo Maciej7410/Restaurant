@@ -1,0 +1,54 @@
+{% extends "Hello.html" %}
+
+{% block content %}
+    <h5 class="card-title">Rezerwacja miejsc</h5>
+
+    <div class="alert alert-primary" role="alert">
+        Witamy w restauracji, prosimy o wybranie daty i godziny.
+    </div>
+
+
+<form method="get" style='font-size:30px'>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-6">
+<!--                <input style='border: none ;width:60px;' type="text" name="a1" value="a">-->
+                <label for="date">Data rezerwacji :</label>
+                <input style='border: none;' type="date" id="date" name="date" value="date" min="2021-10-02" max="2021-12-31" ><br>
+                <label for="time">Godzina rezerwacji :</label>
+                <input style='border: none;' type="time" id="time" name="time" value="time" min="8:00" max="22:00"><br>
+                <label for="number">Ilość osób rezerwacji :</label>
+                <input style='border: none;' type="number" id="number" name="number" value="3"min="2" max="8" step="1" value="2"><br>
+                <input type="submit" >
+            </div>
+            <div class="col-6">
+                <input type="radio" id='table1' name="result" value="table1" >
+                <label for="table1">Table 1</label><br>
+                <input type="radio" id='table2' name="result" value="table2">
+                <label for="table2">Table 2</label><br>
+                <input type="radio" id='table3' name="result" value="table3">
+                <label for="table3">Table 3</label><br>
+                <input type="radio" id='table4' name="result" value="table4">
+                <label for="table4">Table 4</label><br>
+                <input type="radio" id='table5' name="result" value="table5">
+                <label for="table5">Table 5</label><br><br><br>
+
+            </div>
+
+<!--                {% if result == 1 %}-->
+
+
+<!--                {% endif%}-->
+
+        </div>
+    </div>
+</form>
+<br>
+
+<br>
+
+<br>
+
+<h1>Zapraszamy w dniu</h1>
+
+{% endblock%}

@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from restaurantapp.views import ClientV, MenuView
+from restaurantapp.views import ClientV, MenuView, MenuRegistration
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', ClientV.get),
-    path('menu', MenuView.get)
+    path('menu', MenuView.get),
+    path('registration', MenuRegistration.post, name='registration'),
 ]

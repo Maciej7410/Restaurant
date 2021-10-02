@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.views import View
+from django.views.decorators.csrf import csrf_exempt
+
 from restaurantapp.models import Table
 
 
@@ -19,4 +21,15 @@ class MenuView(View):
             request,
             template_name='Menu.html',
             context={'menu': 'Menu'}
+        )
+@csrf_exempt
+class MenuRegistration(View):
+    def post(request):
+        return render(
+            request,
+            template_name='Registration.html',
+            context={
+                'user': 'Maciej'
+            }
+
         )
