@@ -1,21 +1,17 @@
 from django.shortcuts import render
 from django.views import View
-from restaurantapp.models import Table
+from django.contrib.auth.views import LoginView
+from restaurantapp.forms import LoginForm
+from django.views.generic import CreateView
+from restaurantapp.forms import RegisterView
+from django.urls import reverse_lazy
 
 
 # Create your views here.
 
-class ClientV(View):
-    def get(request):
-        return render(
-            request,
-            template_name='Hello.html',
-            context={'clients': Table.objects.all()}
-        )
-
 
 class MenuView(View):
-    def get(self,request):
+    def get(self, request):
         return render(
             request,
             template_name='Menu.html',
@@ -31,12 +27,14 @@ class MainView(View):
             context={'main': ''}
         )
 
-class SingIn(View):
-    def get(self, request):
-        return render(
-            request,
-            template_name='Singin.html',
-            context={'Singin': ''}
-        )
-    def post(self, request):
-        pass
+
+class SignInView(LoginView):
+    template_name = 'Signin.html'
+    form_class = LoginForm
+    success_url = reverse_lazy('admin')
+
+
+class RegisterUser(CreateView):
+    template_name = 'Register.html'
+    form_class = RegisterView
+    success_url = reverse_lazy('main')

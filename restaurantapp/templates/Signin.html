@@ -1,0 +1,32 @@
+{% load static %}
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<link rel="stylesheet" href="{% static 'signinstyle.css' %}">
+
+{% block content %}
+
+    <div class="sidenav">
+        <a href="{% url 'main' %}"><button style=" padding-left: 60px; background-color:black; border-color:black;" type="submit" class="btn btn-secondary">Home</button></a>
+         <div class="login-main-text">
+             <h2>Restaurant<br> Login Page</h2>
+            <p>Login or register from here to access.</p>
+         </div>
+    </div>
+      <div class="main">
+         <div class="col-md-4 col-sm-12">
+            <div class="login-form">
+               <form method="post">
+                   {% csrf_token %}
+                   {{ form.as_p }}
+                  <button  style="float: left;"  type="submit" class="btn btn-black">Login</button>
+               </form>
+                <div style="margin-left: 2px;">
+                    <a href="{% url 'register' %}"><button type="submit" class="btn btn-secondary">Register</button></a>
+                </div>
+            </div>
+         </div>
+      </div>
+{% endblock %}
