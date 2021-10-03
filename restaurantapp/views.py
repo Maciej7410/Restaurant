@@ -7,7 +7,7 @@ from restaurantapp.forms import RegisterView
 from django.urls import reverse_lazy
 from restaurantapp.models import Table, Category, Dish, Reservation
 import time
-from django.views.generic import ListView
+
 
 
 
@@ -16,7 +16,6 @@ from django.views.generic import ListView
 # @csrf_exempt
 class MenuRegistration(View):
     def get(self, request):
-
         return render(
             request,
             template_name='Registration.html',

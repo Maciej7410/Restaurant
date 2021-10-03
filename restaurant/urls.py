@@ -16,8 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from restaurantapp.views import MenuView, MainView, SignInView, RegisterUser
-from restaurantapp.views import ClientV, menu_view, dish_view, category_view, OrderView, MenuRegistration
+from restaurantapp.views import MainView, SignInView, RegisterUser
+from restaurantapp.views import menu_view, dish_view, category_view, OrderView, MenuRegistration
 
 from restaurantapp.models import Reservation, Client, Table, Dish, Category, OrderDish
 
