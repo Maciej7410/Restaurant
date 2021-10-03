@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import View
-from restaurantapp.models import Table, Category, Dish
+from restaurantapp.models import Table, Category, Dish, OrderDish
 
 
 # Create your views here.
@@ -36,4 +36,13 @@ def dish_view(request, id):
     dane = {'dishes': dishes, 'categories': categories}
     return render(request, 'Dishes.html', dane)
 
-
+# def order_view(request, id):
+#     order = OrderDish.objects.get(pk=id)
+#     dishes = Dish.objects.filter(order_view=order)
+#     dane = {'order': order,
+#             'dishes': dishes}
+#     return render(request, 'Ordered.html', dane)
+class OrderView(View):
+    def post(self, request):
+        order = request.POST.get('dish_id', 'None')
+        return render(request, template_name='Ordered.html', context={'dish_name': Dish.objects.filter(id=order)})

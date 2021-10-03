@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from restaurantapp.views import ClientV, menu_view, dish_view, category_view
+from restaurantapp.views import ClientV, menu_view, dish_view, category_view, OrderView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,6 +23,7 @@ urlpatterns = [
     path('menu', menu_view, name='menu_view'),
     path('category/<id>/', category_view, name='category_view'),
     path('dishes/<id>/', dish_view, name='dish_view'),
+    path('order/<id>/', OrderView, name='order_view')
 
 ]
 

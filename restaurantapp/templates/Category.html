@@ -4,9 +4,10 @@
     {% if dish_category %}
         {% for dish in dish_category %}
 
-        <p><a href="{% url 'dish_view' dish.id %}">{{ dish.name }} </a> {{ dish.price }}</p>
-            <form action="...">
-                <input type="checkbox" name="nazwa" value="wartość">Dodaj
+            <p xmlns="http://www.w3.org/1999/html"><a href="{% url 'dish_view' dish.id %}">{{ dish.name }} </a> {{ dish.price }}</p>
+            <form method="get">
+{#                {% csrf_token %}#}
+                <button type="submit" name="dish_id" value="{{ dish.id }}">Dodaj</button>
             </form>
         {% endfor %}
     {% endif %}
