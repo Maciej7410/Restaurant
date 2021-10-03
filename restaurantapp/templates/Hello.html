@@ -9,17 +9,20 @@
     <title>Document</title>
 
 </head>
+{% block title %}
+
+{% endblock %}
 <body>
     <div class="container">
         <button type="button" class="btn btn-outline-primary">Home</button>
         <button type="button" class="btn btn-outline-secondary">Menu</button>
         <button type="button" class="btn btn-outline-success">Reservation</button>
     </div>
-    <div class="login", style="float: right; ">
+    <div class="login">
         <button type="button" class="btn btn-outline-success">Sing in</button>
         <button type="button" class="btn btn-outline-success">Sing up</button>
     </div>
-    <div style="float: inherit">
+    <div>
         {% block content %}
             {% for klient in clients %}
                 <h1>{{ klient.description}}</h1>

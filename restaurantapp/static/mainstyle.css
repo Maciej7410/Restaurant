@@ -1,0 +1,26 @@
+body{
+    background-color: #5b80b2
+}
+.distance{
+    margin-top: 20rem;
+    width: 1210px;
+}
+.rounded{
+    width: 250px;
+    height: 250px;
+    margin: 15px;
+    -webkit-transition: all 0.8s ease;
+     -moz-transition: all 0.8s ease;
+       -o-transition: all 0.8s ease;
+      -ms-transition: all 0.8s ease;
+          transition: all 0.8s ease;
+}
+.rounded:hover{
+    -webkit-transform: rotate(10deg);
+     -moz-transform: rotate(10deg);
+       -o-transform: rotate(10deg);
+      -ms-transform: rotate(10deg);
+          transform: rotate(10deg);
+}
+
+

@@ -1,18 +1,15 @@
 from django.shortcuts import render
 from django.views import View
+from django.contrib.auth.views import LoginView
+from restaurantapp.forms import LoginForm
+from django.views.generic import CreateView
+from restaurantapp.forms import RegisterView
+from django.urls import reverse_lazy
 from restaurantapp.models import Table, Category, Dish, Reservation
 import time
-from restaurantapp.forms import DishForm
 from django.views.generic import ListView
 
 
-class ClientV(View):
-    def get(request):
-        return render(
-            request,
-            template_name='Hello.html',
-            context={'clients': Table.objects.all()}
-        )
 
 
 
@@ -50,19 +47,7 @@ class MenuRegistration(View):
                 table.save()
                 result = "Zapisano termin"
 
-        return render(
-            request,
-            template_name='Registration.html',
-            context={
-                'user': 'Maciej',
-                'date': date_post,
-                'time': time_post,
-                'table': table_post,
-                'result': result,
-                'start_date': "start_date.date_of_reservation",
-                'set': set
-            }
-        )
+
 
 
 def menu_view(request):
@@ -97,3 +82,25 @@ class OrderView(View):
     def post(self, request):
         order = request.POST.get('dish_id', 'None')
         return render(request, template_name='Ordered.html', context={'dish_name': Dish.objects.filter(id=order)})
+
+
+
+class MainView(View):
+    def get(self, request):
+        return render(
+            request,
+            template_name='Main.html',
+            context={'main': ''}
+        )
+
+
+class SignInView(LoginView):
+    template_name = 'Signin.html'
+    form_class = LoginForm
+    success_url = reverse_lazy('admin')
+
+
+class RegisterUser(CreateView):
+    template_name = 'Register.html'
+    form_class = RegisterView
+    success_url = reverse_lazy('main')

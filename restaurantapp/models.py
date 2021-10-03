@@ -1,6 +1,7 @@
 from django.db.models import (Model,
                               CharField, IntegerField, ForeignKey,
-                              DateField, DateTimeField, DO_NOTHING, TextField, DecimalField, OneToOneField, CASCADE)
+                              DateField, DateTimeField, DO_NOTHING, TextField, FloatField,
+                              OneToOneField, CASCADE, DecimalField)
 
 from django.contrib.auth.models import User
 
