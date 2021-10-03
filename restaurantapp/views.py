@@ -15,14 +15,6 @@ class ClientV(View):
         )
 
 
-class MenuView(View):
-    def get(request):
-        return render(
-            request,
-            template_name='Menu.html',
-            context={'menu': 'Menu'}
-        )
-
 
 # @csrf_exempt
 class MenuRegistration(View):
