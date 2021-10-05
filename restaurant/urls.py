@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from restaurantapp.views import ClientV, MenuView, MenuRegistration, DishesView, RegistrationViews
+from restaurantapp.views import MenuView, MenuRegistration, ReservationFormView, DishFormView, CategoryFormView
 from restaurantapp.models import Reservation, Client, Table, Dish, Category, OrderDish
 
 
@@ -30,10 +30,12 @@ admin.site.register(Reservation)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('a', ClientV.get),
+
     path('menu', MenuView.get),
     path('registration', MenuRegistration.as_view(), name='registration'),
-    path('', DishesView.as_view(), name='dish'),
-    path('form/', RegistrationViews.as_view(), name='registration_view'),
+    # path('', DishesView.as_view(), name='dish'),
+    path('form', ReservationFormView.as_view(), name='reservation_view'),
+    path('', DishFormView.as_view(), name='dish_view'),
+    path('category', CategoryFormView.as_view()),
 ]
 

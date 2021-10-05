@@ -1,30 +1,34 @@
 from django.shortcuts import render
 from django.views import View
-from django.views.generic import FormView
+from django.views.generic import FormView, ListView
 
-from restaurantapp.models import Table, Reservation
+from restaurantapp.models import Table, Reservation, Category
 import time
-from restaurantapp.forms import DishForm
-from django.views.generic import ListView
+from restaurantapp.forms import ReservationForm, DishForm, CategoryForm
+
 
 # Create your views here.
-class DishesView(FormView):
+# class ReservationFormView(FormView):
+#     template_name = 'TestForms.html'
+#     from_class = ReservationForm
+# model = Reservation
+# extra_context = {
+#     'reservation': Reservation.objects.all()
+# }
+class ReservationFormView(FormView):
     template_name = 'TestForms.html'
-    # from_class = DishForm
+    Form_class = ReservationForm
     model = Reservation
 
-class RegistrationViews(ListView):
-    template_name = 'TestForms.html'
-    from_class = DishForm
-    model = Reservation
 
-class ClientV(View):
-    def get(request):
-        return render(
-            request,
-            template_name='Hello.html',
-            context={'clients': Table.objects.all()}
-        )
+class DishFormView(FormView):
+    template_name = 'TestForms.html'
+    Form_class = DishForm
+
+
+class CategoryFormView(FormView):
+    template_name = 'TestForms.html'
+    Form_class = CategoryForm
 
 
 class MenuView(View):

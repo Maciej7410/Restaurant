@@ -3,12 +3,18 @@
 {% block content%}
     <form method="post">
         {% csrf_token %}
-        {% for item in object_list %}
-        <table>
-            {{ item.start_time }}   {{item.end_time }}
+        <br>
+        <br>
+        <br>
+        <br>
+
+         <table>
+
+             {{form.as_table}}
+
+
         </table>
-        {% endfor%}
-        {{ form }}
+
         <input type="submit" value="Submit" class="btn btn-primary">
     </form>
 {% endblock %}
