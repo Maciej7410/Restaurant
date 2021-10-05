@@ -1,11 +1,13 @@
 from django.shortcuts import render
 from django.views import View
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth import logout
 from restaurantapp.forms import LoginForm
 from django.views.generic import CreateView
 from restaurantapp.forms import RegisterView
 from django.urls import reverse_lazy
 from restaurantapp.models import Table, Category, Dish, Reservation
+
 import time
 
 
@@ -96,10 +98,15 @@ class MainView(View):
 class SignInView(LoginView):
     template_name = 'Signin.html'
     form_class = LoginForm
-    success_url = reverse_lazy('admin')
+
 
 
 class RegisterUser(CreateView):
     template_name = 'Register.html'
     form_class = RegisterView
     success_url = reverse_lazy('main')
+
+class LogOutUser(LogoutView):
+    template_name = 'Logout.html'
+    def log_out(self,request):
+        logout(request)

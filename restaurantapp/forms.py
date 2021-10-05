@@ -35,3 +35,4 @@ class RegisterView(UserCreationForm):
         if commit:
             profile.save()
         return result
+
