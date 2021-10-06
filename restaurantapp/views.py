@@ -9,16 +9,11 @@ from restaurantapp.models import Table, Category, Dish, Reservation
 import time
 
 
-
-
-
-
-# @csrf_exempt
-class MenuRegistration(View):
+class ReservationView(View):
     def get(self, request):
         return render(
             request,
-            template_name='Registration.html',
+            template_name='Reservation.html',
             context={
                 'user': 'Maciej'
             }
@@ -47,8 +42,6 @@ class MenuRegistration(View):
                 result = "Zapisano termin"
 
 
-
-
 def menu_view(request):
     categories = Category.objects.all()
     dane = {'categories': categories}
@@ -71,6 +64,7 @@ def dish_view(request, id):
     dane = {'dishes': dishes, 'categories': categories}
     return render(request, 'Dishes.html', dane)
 
+
 # def order_view(request, id):
 #     order = OrderDish.objects.get(pk=id)
 #     dishes = Dish.objects.filter(order_view=order)
@@ -81,7 +75,6 @@ class OrderView(View):
     def post(self, request):
         order = request.POST.get('dish_id', 'None')
         return render(request, template_name='Ordered.html', context={'dish_name': Dish.objects.filter(id=order)})
-
 
 
 class MainView(View):

@@ -1,10 +1,10 @@
-{% extends "Hello.html" %}
+{% extends "Main.html" %}
 
 {% block content %}
-    <h5 class="card-title">Rezerwacja miejsc</h5>
+    <h5 class="card-title">Reservation places</h5>
 
     <div class="alert alert-primary" role="alert">
-        Witamy w restauracji, prosimy o wybranie daty i godziny.
+        Welcom to the best restaurant in the world.
     </div>
 
 
@@ -20,7 +20,7 @@
                 <input style='border: none;' type="time" id="time" name="time" value="16:00" min="8:00" max="22:00" required pattern="[0-9]{2}:[0-1]{2}"><br>
                 <label for="number">Ilość osób rezerwacji :</label>
                 <input style='border: none;' type="number" id="number" name="number" value="3" min="2" max="8" step="1" ><br>
-                <input type="submit" >
+                <input class="buttion" type="submit" >
             </div>
             <div class="col-6">
                 <input type="radio" id='table1' name="table" value="table1" checked="True" >
