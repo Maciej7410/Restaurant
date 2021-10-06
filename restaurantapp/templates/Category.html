@@ -4,10 +4,10 @@
     {% if dish_category %}
         {% for dish in dish_category %}
 
-            <p xmlns="http://www.w3.org/1999/html"><a href="{% url 'dish_view' dish.id %}">{{ dish.name }} </a> {{ dish.price }}</p>
+            <p xmlns="http://www.w3.org/1999/html"><a class="dish" href="{% url 'dish_view' dish.id %}">{{ dish.name }} </a> {{ dish.price }}</p>
             <form method="get">
-{#                {% csrf_token %}#}
-                <button type="submit" name="dish_id" value="{{ dish.id }}">Dodaj</button>
+                {% csrf_token %}
+                <button class="button" type="submit" name="dish_id" value="{{ dish.id }}">Dodaj</button>
             </form>
         {% endfor %}
     {% endif %}

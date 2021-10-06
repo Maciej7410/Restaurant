@@ -5,7 +5,7 @@ from restaurantapp.forms import LoginForm
 from django.views.generic import CreateView
 from restaurantapp.forms import RegisterView
 from django.urls import reverse_lazy
-from restaurantapp.models import Table, Category, Dish, Reservation
+from restaurantapp.models import Table, Category, Dish, Reservation, OrderDish
 import time
 
 
@@ -72,15 +72,24 @@ def dish_view(request, id):
     return render(request, 'Dishes.html', dane)
 
 # def order_view(request, id):
-#     order = OrderDish.objects.get(pk=id)
-#     dishes = Dish.objects.filter(order_view=order)
-#     dane = {'order': order,
-#             'dishes': dishes}
+#     order = request.POST.get('dish_id')
+#     categories = Category.objects.all()
+#     category_user = Category.objects.get(pk=id)
+#     dish_category = Dish.objects.filter(category=category_user)
+#     dishes = Dish.objects.filter(category=order)
+#
+#     dane = {'dishes': dishes,
+#             'categories': categories,
+#             'category_user': category_user,
+#             'dish_category': dish_category,
+#             'order': order}
 #     return render(request, 'Ordered.html', dane)
 class OrderView(View):
     def post(self, request):
         order = request.POST.get('dish_id', 'None')
-        return render(request, template_name='Ordered.html', context={'dish_name': Dish.objects.filter(id=order)})
+        categories = Category.objects.all()
+        return render(request, template_name='Ordered.html', context={'dish_name': Dish.objects.filter(id=order),
+                                                                      'categories': categories})
 
 
 

@@ -1,9 +1,9 @@
-
+{% extends 'Menu.html' %}
 
 {% block ordered %}
-    {% if order %}
-        <h1>{{ order.name }}</h1>
-        <p>{{ order.price }}</p>
+    {% if dishes %}
+        <h1>{{ dishes.name }}</h1>
+        <p>{{ dishes.price }}</p>
 
     {% endif %}
 
