@@ -1,7 +1,7 @@
 from django.db.models import (Model,
                               CharField, IntegerField, ForeignKey,
                               DateField, DateTimeField, DO_NOTHING, TextField, FloatField,
-                              OneToOneField, CASCADE, DecimalField)
+                              OneToOneField, CASCADE, DecimalField, TimeField)
 
 from django.contrib.auth.models import User
 
@@ -43,6 +43,6 @@ class Reservation(Model):
     table = ForeignKey(Table, on_delete=DO_NOTHING)
     order_dish = ForeignKey(OrderDish, on_delete=DO_NOTHING)
     date_of_reservation = DateField()
-    start_time = DateTimeField()
-    end_time = DateTimeField()
+    start_time = TimeField()
+    end_time = TimeField()
 

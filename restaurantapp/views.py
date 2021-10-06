@@ -6,6 +6,7 @@ from django.views.generic import CreateView
 from restaurantapp.forms import RegisterView
 from django.urls import reverse_lazy
 from restaurantapp.models import Table, Category, Dish, Reservation
+from datetime import timedelta
 import time
 
 
@@ -21,25 +22,45 @@ class ReservationView(View):
 
     def post(self, request):
         result = ""
-        set = ''
+        update = True
         date_post = request.POST.get('date', 'none')
-        date_post = time.strptime(str(date_post), "%Y-%m-%d")
         time_post = request.POST.get('time', 'none')
-        table_post = request.POST.get('table', 'none')
+        date_time = date_post + ' ' + time_post
+        date_time_join = time.strptime(str(date_time), "%Y-%m-%d %H:%M")
+        end_time = time.strptime(time_post, "%H:%M").tm_hour + 1
+        # end_time = time.strptime(time_post, "%H:%M").tm_hour + 1
+        table_post = int(request.POST.get('table', 'none'))
 
         registration_db = Reservation.objects.all()
         for start_date in registration_db:
+            date_time_db = str(start_date.date_of_reservation) + ' ' + str(start_date.end_time)
+            date_time_join_db = time.strptime(date_time_db, '%Y-%m-%d %H:%M:%S')
+            if date_time_join_db.tm_hour == date_time_join.tm_hour and \
+                    date_time_join_db.tm_min == date_time_join.tm_min and \
+                    date_time_join_db.tm_year == date_time_join.tm_year and \
+                    date_time_join_db.tm_mon == date_time_join.tm_mon and \
+                    date_time_join_db.tm_mday == date_time_join.tm_mday and \
+                    table_post == start_date.table_id:
+                result = "Unsaved"
+                update = False
+        if update == True:
+            deadline = Reservation(date_of_reservation=date_post, end_time=time_post, order_dish_id=1,
+                                   table_id=table_post, client_id=1, start_time=time_post)
+            deadline.save()
+            result = "Saved"
 
-            if time.strptime(str(start_date.date_of_reservation), "%Y-%m-%d") == date_post:
-                result = "Zajęte"
-                set = start_date.date_of_reservation
-            else:
-                set = start_date.date_of_reservation
-                # deadline = Reservation(date_of_reservation=date_post, start_time=time_post, table_id=1)
-                # deadline.save()
-                table = Table(name=date_post, description=time_post, sits='2')
-                table.save()
-                result = "Zapisano termin"
+        return render(
+            request,
+            template_name='Reservation.html',
+            context={
+                'result': result,
+                'update': update,
+                'start_date': date_post,
+                'start_time': time_post,
+                'end_time': end_time,
+                'table_post': table_post
+            }
+        )
 
 
 def menu_view(request):
