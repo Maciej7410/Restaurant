@@ -4,16 +4,23 @@
         <h1>Welcome in Menu</h1>
     </div>
     <div style="clear: both"></div>
-        <div style="width: 200px; float: left">
-            {% for dish in categories %}
-                <p><a href="{% url 'category_view' dish.id%}"> {{ dish.name }}</a></p>
-            {% endfor %}
-        </div>
-    <div style="width: 400px; float:left ">
-        {% block dishes %}  {% endblock %}
+    <div style="width: 200px; float: left; color: white;">
+        {% for category in categories %}
+            <p><a style="color: white; margin-left: 5px;" href=""> {{ category.id }}</a></p>
+        {% endfor %}
     </div>
-    <div style="width: 200px; float: left">
-        {% block ordered %}cos tam {% endblock %}
+    <div style="width: 400px; float:left;">
+        {    {% if dishes %}
+        <h1>{{ dishes.name }}</h1>
+        <p>{{ dishes.description }}</p>
+    {% endif %}
+    </div>
+    <div style="width: 200px; float: left; color: white;">
+        {% if order %}
+            <h1>{{ order.name }}</h1>
+            <p>{{ order.price }}</p>
+
+        {% endif %}
     </div>
 
 

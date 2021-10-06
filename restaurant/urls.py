@@ -18,13 +18,13 @@ from django.urls import path
 from django.contrib.auth import views
 
 from restaurantapp.views import MainView, SignInView, RegisterUser
-from restaurantapp.views import menu_view, dish_view, category_view, OrderView, MenuRegistration, LogOutUser
+from restaurantapp.views import  dish_view, category_view, OrderView, MenuRegistration, LogOutUser, MenuView
 
 from restaurantapp.models import Reservation, Client, Table, Dish, Category, OrderDish
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('menu/', menu_view, name='menu_view'),
+    path('menu/', MenuView.as_view(), name='menu_view'),
     path('category/<id>/', category_view, name='category_view'),
     path('dishes/<id>/', dish_view, name='dish_view'),
     path('order/<id>/', OrderView, name='order_view'),

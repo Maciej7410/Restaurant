@@ -11,13 +11,10 @@ from restaurantapp.models import Table, Category, Dish, Reservation
 import time
 
 
-
-
-
-
 # @csrf_exempt
 class MenuRegistration(View):
     def get(self, request):
+
         return render(
             request,
             template_name='Registration.html',
@@ -49,13 +46,24 @@ class MenuRegistration(View):
                 result = "Zapisano termin"
 
 
+class MenuView(View):
+    def get(self, request):
+        categories = Category.objects.all()
+        return render(
+            request,
+            template_name='Menu.html',
+            context={
+                'categories': categories,
+                'dish': Dish.name,
+                'price': Dish.price,
+                'description': Dish.description}
+        )
 
-
-def menu_view(request):
-    categories = Category.objects.all()
-    dane = {'categories': categories}
-    return render(request, 'Menu.html', dane)
-
+# def menu_view(request):
+# #     categories = Category.objects.all()
+#     dane = {'categories': categories}
+#     return render(request, 'Menu.html', dane)
+#
 
 def category_view(request, id):
     category_user = Category.objects.get(pk=id)
@@ -73,6 +81,7 @@ def dish_view(request, id):
     dane = {'dishes': dishes, 'categories': categories}
     return render(request, 'Dishes.html', dane)
 
+
 # def order_view(request, id):
 #     order = OrderDish.objects.get(pk=id)
 #     dishes = Dish.objects.filter(order_view=order)
@@ -82,8 +91,7 @@ def dish_view(request, id):
 class OrderView(View):
     def post(self, request):
         order = request.POST.get('dish_id', 'None')
-        return render(request, template_name='Ordered.html', context={'dish_name': Dish.objects.filter(id=order)})
-
+        return render(request, template_name='Menu.html', context={'dish_name': Dish.objects.filter(id=order)})
 
 
 class MainView(View):
@@ -100,13 +108,14 @@ class SignInView(LoginView):
     form_class = LoginForm
 
 
-
 class RegisterUser(CreateView):
     template_name = 'Register.html'
     form_class = RegisterView
     success_url = reverse_lazy('main')
 
+
 class LogOutUser(LogoutView):
     template_name = 'Logout.html'
-    def log_out(self,request):
+
+    def log_out(self, request):
         logout(request)
