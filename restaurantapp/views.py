@@ -6,8 +6,8 @@ from restaurantapp.forms import LoginForm
 from django.views.generic import CreateView
 from restaurantapp.forms import RegisterView
 from django.urls import reverse_lazy
-from restaurantapp.models import Table, Category, Dish, Reservation, OrderDish, OrderList
-from restaurantapp.models import Table, Category, Dish, Reservation
+
+from restaurantapp.models import Category, Dish, Reservation
 from datetime import timedelta
 import time
 
@@ -65,13 +65,13 @@ class ReservationView(View):
         )
 
 
-
 class MenuView(View):
     def get(self, request):
         categories = Category.objects.all()
         return render(request,
                       template_name='Menu.html',
                       context={'categories': categories})
+
 
 class CategoryView(View):
     def get(self, request, id):
@@ -94,38 +94,14 @@ class DishView(View):
                       context={'dishes': dishes,
                                'categories': categories})
 
-# def order_view(request, id):
-#     order = OrderDish.objects.get(pk=id)
-#     dishes = Dish.objects.filter(order_view=order)
-#     dane = {'order': order,
-#             'dishes': dishes}
-#     return render(request, 'Ordered.html', dane)
+
 class OrderView(View):
-    def get(self, request):
-        actuals_order = OrderDish.objects.all()
-        dish_list = Dish.objects.all()
-
+    def get(self, request, id):
+        actuals_order = Reservation.objects.find(id=id).first()
+        dish_list = actuals_order.dishes
         return render(request,
                       template_name='Ordered.html',
-                      context={'ordered': actuals_order,
-                               'dishes': dish_list})
-
-    def post(self, request):
-        ordered = int(request.POST.get('dish_id', 0))
-        new_order = OrderDish(dish_id=ordered)
-        new_order.save()
-        actuals_order = OrderDish.objects.all()
-        return render(request,
-                      template_name='Ordered.html',
-                      context={'ordered': actuals_order}
-
-        )
-
-
-
-
-
-
+                      context={'ordered': dish_list})
 
 
 class MainView(View):
