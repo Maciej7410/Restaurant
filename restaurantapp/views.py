@@ -6,6 +6,7 @@ from restaurantapp.forms import LoginForm
 from django.views.generic import CreateView
 from restaurantapp.forms import RegisterView
 from django.urls import reverse_lazy
+from restaurantapp.models import Category, Dish, Reservation
 from restaurantapp.models import Table, Category, Dish, Reservation, OrderDish, OrderList
 from restaurantapp.models import Table, Category, Dish, Reservation
 from datetime import timedelta
@@ -47,7 +48,7 @@ class ReservationView(View):
                 update = False
         if update == True:
             deadline = Reservation(date_of_reservation=date_post, end_time=time_post, order_dish_id=1,
-                                   table_id=table_post, client_id=5, start_time=time_post)
+                                   table_id=table_post, client_id=1, start_time=time_post)
             deadline.save()
             result = "Saved"
 
@@ -96,18 +97,12 @@ class DishView(View):
 
 
 class OrderView(View):
-    ordered = []
-
-    def post(self, request):
-        order = request.POST.get('dish_id', None)
-        categories = Category.objects.all()
-        self.ordered.append(order)
+    def get(self, request, id):
+        actuals_order = Reservation.objects.find(id=id).first()
+        dish_list = actuals_order.dishes
         return render(request,
                       template_name='Ordered.html',
-                      context={
-                          'categories:': categories,
-                          'order': self.ordered
-                      })
+                      context={'ordered': dish_list})
 
 
 class MainView(View):
@@ -122,6 +117,7 @@ class MainView(View):
 class SignInView(LoginView):
     template_name = 'Signin.html'
     form_class = LoginForm
+    success_url = reverse_lazy('admin')
 
 
 class RegisterUser(CreateView):
