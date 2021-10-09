@@ -96,6 +96,7 @@ class DishView(View):
                                'categories': categories})
 
 
+
 class OrderView(View):
     def get(self, request, id):
         actuals_order = Reservation.objects.find(id=id).first()
