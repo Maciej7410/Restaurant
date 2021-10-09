@@ -1,6 +1,15 @@
 body{
     background-color: #5b80b2
 }
+
+input {
+    background: #5b80b2;
+
+}
+.border-none {
+    border: none;
+}
+
 .distance{
     margin-top: 20rem;
     width: 1210px;
