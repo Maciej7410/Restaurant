@@ -1,13 +1,13 @@
 {% extends 'Menu.html' %}
 
 {% block dishes %}
-    {% if dish_category %}
-        {% for dish in dish_category %}
+    {% if dish_received %}
+        {% for dish in dish_received %}
 
             <p xmlns="http://www.w3.org/1999/html"><a class="dish" href="{% url 'dish_view' dish.id %}">{{ dish.name }} </a> {{ dish.price }}</p>
-            <form method="get">
+            <form action="{% url 'order_view' %}" method="post">
                 {% csrf_token %}
-                <button class="button" type="submit" name="dish_id" value="{{ dish.id }}">Dodaj</button>
+                <button class="button" type="submit" name="dish_id" value="{{ dish.name }}{{ dish.price }}">Dodaj</button>
             </form>
         {% endfor %}
     {% endif %}

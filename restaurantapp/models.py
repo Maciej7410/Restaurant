@@ -33,9 +33,14 @@ class Dish(Model):
     def __str__(self):
         return self.name
 
-
+class OrderList(Model):
+    name = CharField(max_length=40)
+    price = DecimalField(max_digits=5, decimal_places=2)
+    def __str__(self):
+        return self.name
 class OrderDish(Model):
     dish = ForeignKey(Dish, on_delete=DO_NOTHING)
+
 
 
 class Reservation(Model):

@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 
 from restaurantapp.views import MainView, SignInView, RegisterUser
-from restaurantapp.views import menu_view, dish_view, category_view, OrderView, MenuRegistration
+from restaurantapp.views import MenuView, DishView, CategoryView, OrderView, MenuRegistration
 
 from restaurantapp.models import Reservation, Client, Table, Dish, Category, OrderDish
 
@@ -28,11 +28,11 @@ from restaurantapp.models import Reservation, Client, Table, Dish, Category, Ord
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('menu', menu_view, name='menu_view'),
-    path('category/<id>/', category_view, name='category_view'),
-    path('dishes/<id>/', dish_view, name='dish_view'),
-    path('order/<id>/', OrderView, name='order_view'),
+    path('menu', MenuView.as_view(), name='menu_view'),
+    path('category/<id>/', CategoryView.as_view(), name='category_view'),
+    path('dishes/<id>/', DishView.as_view(), name='dish_view'),
     path('registration', MenuRegistration.as_view(), name='registration'),
+    path('order', OrderView.as_view(), name='order_view'),
     path('', MainView.as_view(), name='main'),
     path('login/', SignInView.as_view(), name='signin'),
     path('register/', RegisterUser.as_view(), name='register')
