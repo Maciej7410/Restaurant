@@ -1,27 +1,61 @@
-{% extends 'Main.html' %}
-{% block content %}
-    <div>
-        <h1>Welcome in Menu</h1>
+{% load static %}
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+            crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="{% static 'menustyle.css' %}">
+    <title>Menu</title>
+</head>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'main' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'menu_view' %} ">Menu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'registration' %}">Reservation</a>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <a href="{% url 'signin' %}"><button style="text-align: right" type="button" class="btn btn-primary">Sing in</button></a>
+        </div>
     </div>
-    <div style="clear: both"></div>
-    <div style="width: 200px; float: left; color: white;">
-        {% for category in categories %}
-            <p><a style="color: white; margin-left: 5px;" href=""> {{ category.id }}</a></p>
-        {% endfor %}
-    </div>
-    <div style="width: 400px; float:left;">
-        {    {% if dishes %}
-        <h1>{{ dishes.name }}</h1>
-        <p>{{ dishes.description }}</p>
-    {% endif %}
-    </div>
-    <div style="width: 200px; float: left; color: white;">
-        {% if order %}
-            <h1>{{ order.name }}</h1>
-            <p>{{ order.price }}</p>
+</nav>
+<body>
+    {% block content %}
+        <div class="header">
+            <img src="{% static 'menuzdj2.jpg' %}" class="rounded" alt="...">
+        </div>
 
-        {% endif %}
-    </div>
+        <div class="navigation_table">
+            <h2>KATEGORIE</h2>
+            {% for category in categories %}
+                <p><a class="category" href="{% url 'category_view' category.id%}"> {{ category.name }}</a></p>
+            {% endfor %}
+        </div>
+        <div class='dishes_table'>
+            <h2>DANIA</h2>
+            {% block dishes %}  {% endblock %}
+        </div>
+        <div class="order_table">
+            <h2>TWOJE ZAMÓWIENIE</h2>
+            {% block ordered %}{% endblock %}
+        </div>
 
 
-{% endblock %}
+    {% endblock %}
+</body>

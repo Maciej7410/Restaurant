@@ -1,8 +1,7 @@
-
+{% extends 'Menu.html' %}
 
 {% block ordered %}
-
-
-
-
+    {% if order %}
+        <h1>{{ order }}</h1>
+    {% endif %}
 {% endblock %}

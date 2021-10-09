@@ -6,15 +6,17 @@ from restaurantapp.forms import LoginForm
 from django.views.generic import CreateView
 from restaurantapp.forms import RegisterView
 from django.urls import reverse_lazy
-from restaurantapp.models import Table, Category, Dish, Reservation
-
+from restaurantapp.models import Table, Category, Dish, Reservation, OrderDish, OrderList
 import time
+
+
+
+
 
 
 # @csrf_exempt
 class MenuRegistration(View):
     def get(self, request):
-
         return render(
             request,
             template_name='Registration.html',
@@ -46,52 +48,55 @@ class MenuRegistration(View):
                 result = "Zapisano termin"
 
 
+
+
 class MenuView(View):
     def get(self, request):
         categories = Category.objects.all()
-        return render(
-            request,
-            template_name='Menu.html',
-            context={
-                'categories': categories,
-                'dish': Dish.name,
-                'price': Dish.price,
-                'description': Dish.description}
-        )
+        return render(request,
+                      template_name='Menu.html',
+                      context={'categories': categories})
 
-# def menu_view(request):
-# #     categories = Category.objects.all()
-#     dane = {'categories': categories}
-#     return render(request, 'Menu.html', dane)
-#
-
-def category_view(request, id):
-    category_user = Category.objects.get(pk=id)
-    dish_category = Dish.objects.filter(category=category_user)
-    categories = Category.objects.all()
-    dane = {'category_user': category_user,
-            'dish_category': dish_category,
-            'categories': categories}
-    return render(request, 'Category.html', dane)
+class CategoryView(View):
+    def get(self, request, id):
+        selected_category = Category.objects.get(pk=id)
+        dish_received = Dish.objects.filter(category=selected_category)
+        categories = Category.objects.all()
+        return render(request,
+                      template_name='Category.html',
+                      context={'selected_category': selected_category,
+                               'dish_received': dish_received,
+                               'categories': categories})
 
 
-def dish_view(request, id):
-    dishes = Dish.objects.get(pk=id)
-    categories = Category.objects.all()
-    dane = {'dishes': dishes, 'categories': categories}
-    return render(request, 'Dishes.html', dane)
+class DishView(View):
+    def get(self, request, id):
+        dishes = Dish.objects.get(pk=id)
+        categories = Category.objects.all()
+        return render(request,
+                      template_name="Dishes.html",
+                      context={'dishes': dishes,
+                               'categories': categories})
 
 
-# def order_view(request, id):
-#     order = OrderDish.objects.get(pk=id)
-#     dishes = Dish.objects.filter(order_view=order)
-#     dane = {'order': order,
-#             'dishes': dishes}
-#     return render(request, 'Ordered.html', dane)
 class OrderView(View):
+    ordered = []
     def post(self, request):
-        order = request.POST.get('dish_id', 'None')
-        return render(request, template_name='Menu.html', context={'dish_name': Dish.objects.filter(id=order)})
+        order = request.POST.get('dish_id', None)
+        return render(request,
+                      template_name='Ordered.html',
+                      context={'order': order,
+                               'ordered': ordered})
+    # def get(self, request):
+    #     categories = Category.objects.all()
+    #     return render(request,
+    #                   template_name='Ordered.html',
+    #                   context={
+    #                            'categories': categories
+    #                            })
+
+
+
 
 
 class MainView(View):
