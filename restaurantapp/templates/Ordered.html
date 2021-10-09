@@ -1,7 +1,9 @@
 {% extends 'Menu.html' %}
 
 {% block ordered %}
-    {% if order %}
-        <h1>{{ order }}</h1>
-    {% endif %}
+    {% for dish in ordered %}
+        <div>
+        {{ dish.dish_id }}
+        </div>
+    {% endfor %}
 {% endblock %}

@@ -101,21 +101,28 @@ class DishView(View):
 #             'dishes': dishes}
 #     return render(request, 'Ordered.html', dane)
 class OrderView(View):
-    ordered = []
+    def get(self, request):
+        actuals_order = OrderDish.objects.all()
+        dish_list = Dish.objects.all()
 
-    def post(self, request):
-        order = request.POST.get('dish_id', None)
         return render(request,
                       template_name='Ordered.html',
-                      context={'order': order})
+                      context={'ordered': actuals_order,
+                               'dishes': dish_list})
 
-    # def get(self, request):
-    #     categories = Category.objects.all()
-    #     return render(request,
-    #                   template_name='Ordered.html',
-    #                   context={
-    #                            'categories': categories
-    #                            })
+    def post(self, request):
+        ordered = int(request.POST.get('dish_id', 0))
+        new_order = OrderDish(dish_id=ordered)
+        new_order.save()
+        actuals_order = OrderDish.objects.all()
+        return render(request,
+                      template_name='Ordered.html',
+                      context={'ordered': actuals_order}
+
+        )
+
+
+
 
 
 

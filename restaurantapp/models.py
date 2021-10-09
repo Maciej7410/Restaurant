@@ -4,6 +4,7 @@ from django.db.models import (Model,
                               OneToOneField, CASCADE, DecimalField, TimeField)
 
 from django.contrib.auth.models import User
+from django.db import models
 
 
 
@@ -38,15 +39,18 @@ class OrderList(Model):
     price = DecimalField(max_digits=5, decimal_places=2)
     def __str__(self):
         return self.name
+
 class OrderDish(Model):
     dish = ForeignKey(Dish, on_delete=DO_NOTHING)
+    def __int__(self):
+        return self.dish
 
 
 
-class Reservation(Model):
+class Reservation(models.Model):
     client = ForeignKey(Client, on_delete=DO_NOTHING, default=None)
     table = ForeignKey(Table, on_delete=DO_NOTHING)
-    order_dish = ForeignKey(OrderDish, on_delete=DO_NOTHING)
+    dishes = models.ManyToManyField(OrderDish)
     date_of_reservation = DateField()
     start_time = TimeField()
     end_time = TimeField()
