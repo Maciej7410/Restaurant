@@ -19,8 +19,9 @@ from django.urls import path
 from restaurantapp.views import MainView, SignInView, RegisterUser
 from restaurantapp.views import DishView, CategoryView
 from restaurantapp.views import OrderView, MenuRegistration, LogOutUser, MenuView
+from restaurantapp.views import menu_view, dish_view, category_view, OrderView, ReservationView
 
-
+from restaurantapp.models import Reservation, Client, Table, Dish, Category, OrderDish
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,6 +31,11 @@ urlpatterns = [
     path('menu/', MenuView.as_view(), name='menu_view'),
     path('registration', MenuRegistration.as_view(), name='registration'),
     path('order', OrderView.as_view(), name='order_view'),
+    path('menu', menu_view, name='menu_view'),
+    path('category/<id>/', category_view, name='category_view'),
+    path('dishes/<id>/', dish_view, name='dish_view'),
+    path('order/<id>/', OrderView, name='order_view'),
+    path('reservation', ReservationView.as_view(), name='reservation'),
     path('', MainView.as_view(), name='main'),
     path('logout/', LogOutUser.as_view(), name='logout'),
     path('main/', MainView.as_view(), name='main'),

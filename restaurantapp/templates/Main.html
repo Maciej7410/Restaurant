@@ -30,7 +30,7 @@
                     <a class="nav-link" href="{% url 'menu_view' %} ">Menu</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Reservation</a>
+                    <a class="nav-link" href="{% url 'reservation' %}">Reservation</a>
                 </li>
             </ul>
         </div>
@@ -55,6 +55,7 @@
 {% block content %}
 <div class="container distance">
     <div class="row">
+        {% block content %}
         <div class="col-md-1"></div>
         <div class="col-md-3">
             <a href="{% url 'menu_view' %}"><img src="{% static 'menuzdj.jpg' %}" class="rounded" alt="..."></a>
@@ -66,6 +67,7 @@
             <img src="{% static 'menuzdj.jpg' %}" class="rounded" alt="...">
         </div>
         <div class="col-md-1"></div>
+        {% endblock %}
     </div>
 </div>
 </body>
