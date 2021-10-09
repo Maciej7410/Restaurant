@@ -21,11 +21,6 @@ from restaurantapp.views import MenuView, DishView, CategoryView, OrderView, Men
 
 from restaurantapp.models import Reservation, Client, Table, Dish, Category, OrderDish
 
-
-
-
-
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('menu', MenuView.as_view(), name='menu_view'),
