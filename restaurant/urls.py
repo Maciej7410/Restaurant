@@ -24,11 +24,11 @@ from restaurantapp.views import (MainView, SignInView, RegisterUser, DishView, C
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('menu', MenuView.as_view(), name='menu_view'),
+    path('menu/', MenuView.as_view(), name='menu_view'),
     path('category/<id>/', CategoryView.as_view(), name='category_view'),
     path('dishes/<id>/', DishView.as_view(), name='dish_view'),
-    path('order', OrderView.as_view(), name='order_view'),
-    path('reservation', ReservationView.as_view(), name='reservation'),
+    path('order/', OrderView.as_view(), name='order_view'),
+    path('reservation/', ReservationView.as_view(), name='reservation'),
     path('', MainView.as_view(), name='main'),
     path('logout/', LogOutUser.as_view(), name='logout'),
     path('main/', MainView.as_view(), name='main'),

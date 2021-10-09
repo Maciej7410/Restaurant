@@ -108,8 +108,7 @@ class OrderView(View):
         return render(request,
                       template_name='Ordered.html',
                       context={'order': order})
-                      context={'order': order,
-                               })
+
     # def get(self, request):
     #     categories = Category.objects.all()
     #     return render(request,
