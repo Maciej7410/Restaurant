@@ -47,7 +47,7 @@ class ReservationView(View):
                 update = False
         if update == True:
             deadline = Reservation(date_of_reservation=date_post, end_time=time_post, order_dish_id=1,
-                                   table_id=table_post, client_id=1, start_time=time_post)
+                                   table_id=table_post, client_id=5, start_time=time_post)
             deadline.save()
             result = "Saved"
 
@@ -63,7 +63,6 @@ class ReservationView(View):
                 'table_post': table_post
             }
         )
-
 
 
 class MenuView(View):
@@ -95,20 +94,21 @@ class DishView(View):
                       context={'dishes': dishes,
                                'categories': categories})
 
-# def order_view(request, id):
-#     order = OrderDish.objects.get(pk=id)
-#     dishes = Dish.objects.filter(order_view=order)
-#     dane = {'order': order,
-#             'dishes': dishes}
-#     return render(request, 'Ordered.html', dane)
+
 class OrderView(View):
     ordered = []
 
     def post(self, request):
         order = request.POST.get('dish_id', None)
+        categories = Category.objects.all()
+        self.ordered.append(order)
         return render(request,
                       template_name='Ordered.html',
-                      context={'order': order})
+                      context={
+                          'categories:': categories,
+                          'order': self.ordered
+                      })
+
 
 class MainView(View):
     def get(self, request):
