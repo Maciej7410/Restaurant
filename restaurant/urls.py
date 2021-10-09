@@ -15,27 +15,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from restaurantapp.views import MenuView, MenuRegistration, ReservationFormView, DishFormView, CategoryFormView
+
+from restaurantapp.views import MainView, SignInView, RegisterUser
+from restaurantapp.views import menu_view, dish_view, category_view, OrderView, ReservationView
+
 from restaurantapp.models import Reservation, Client, Table, Dish, Category, OrderDish
-
-
-admin.site.register(Client)
-admin.site.register(Table)
-admin.site.register(Category)
-admin.site.register(Dish)
-admin.site.register(OrderDish)
-admin.site.register(Reservation)
-
-
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
-    path('menu', MenuView.get),
-    path('registration', MenuRegistration.as_view(), name='registration'),
-    # path('', DishesView.as_view(), name='dish'),
-    path('form', ReservationFormView.as_view(), name='reservation_view'),
-    path('', DishFormView.as_view(), name='dish_view'),
-    path('category', CategoryFormView.as_view()),
+    path('menu', menu_view, name='menu_view'),
+    path('category/<id>/', category_view, name='category_view'),
+    path('dishes/<id>/', dish_view, name='dish_view'),
+    path('order/<id>/', OrderView, name='order_view'),
+    path('reservation', ReservationView.as_view(), name='reservation'),
+    path('', MainView.as_view(), name='main'),
+    path('login/', SignInView.as_view(), name='signin'),
+    path('register/', RegisterUser.as_view(), name='register')
 ]
-
