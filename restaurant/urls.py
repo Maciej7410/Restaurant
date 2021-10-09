@@ -16,12 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-
 from restaurantapp.views import MainView, SignInView, RegisterUser
-from restaurantapp.views import MenuView, DishView, CategoryView, OrderView, MenuRegistration
-from restaurantapp.views import  dish_view, category_view, OrderView, MenuRegistration, LogOutUser, MenuView
+from restaurantapp.views import DishView, CategoryView
+from restaurantapp.views import OrderView, MenuRegistration, LogOutUser, MenuView
 
-from restaurantapp.models import Reservation, Client, Table, Dish, Category, OrderDish
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,9 +28,6 @@ urlpatterns = [
     path('category/<id>/', CategoryView.as_view(), name='category_view'),
     path('dishes/<id>/', DishView.as_view(), name='dish_view'),
     path('menu/', MenuView.as_view(), name='menu_view'),
-    path('category/<id>/', category_view, name='category_view'),
-    path('dishes/<id>/', dish_view, name='dish_view'),
-    path('order/<id>/', OrderView, name='order_view'),
     path('registration', MenuRegistration.as_view(), name='registration'),
     path('order', OrderView.as_view(), name='order_view'),
     path('', MainView.as_view(), name='main'),
