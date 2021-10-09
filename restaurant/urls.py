@@ -16,8 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from restaurantapp.views import (MainView, SignInView, RegisterUser, DishView, CategoryView,
-                                 LogOutUser, MenuView, OrderView, ReservationView)
+from restaurantapp.views import (MainView, SignInView, RegisterUser, DishView, CategoryIdentView,
+                                 LogOutUser, MenuView, OrderView, ReservationView, CategoryView)
 
 
 
@@ -25,8 +25,9 @@ from restaurantapp.views import (MainView, SignInView, RegisterUser, DishView, C
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('menu', MenuView.as_view(), name='menu_view'),
-    path('category/<id>/', CategoryView.as_view(), name='category_view'),
-    path('dishes/<id>/', DishView.as_view(), name='dish_view'),
+    path('category/<id_category>/<id_dish>', CategoryIdentView.as_view(), name='category_ident_view'),
+    # path('category/<id_category>/<id_reservation>', CategoryIdentView.as_view(), name='category_ident_view'),
+    # path('category/<id_category>/<dishes_id>/<id_reservation>', CategoryView.as_view(), name='category_view'),
     path('order', OrderView.as_view(), name='order_view'),
     path('reservation', ReservationView.as_view(), name='reservation'),
     path('', MainView.as_view(), name='main'),

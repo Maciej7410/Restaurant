@@ -44,7 +44,7 @@
         <div class="navigation_table">
             <h2>KATEGORIE</h2>
             {% for category in categories %}
-                <p><a class="category" href="{% url 'category_view' category.id%}"> {{ category.name }}</a></p>
+                <p><a class="category" href="{% url 'category_ident_view' category.id %}"> {{ category.name }}</a></p>
             {% endfor %}
         </div>
         <div class='dishes_table'>

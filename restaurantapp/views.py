@@ -73,27 +73,40 @@ class MenuView(View):
                       template_name='Menu.html',
                       context={'categories': categories})
 
-
 class CategoryView(View):
-    def get(self, request, id):
-        selected_category = Category.objects.get(pk=id)
+    def get(self, request, ident):
+        categories = Category.objects.all()
+        return render(request,
+                      template_name='CategoryStart.html',
+                      context={'categories': categories})
+
+
+class CategoryIdentView(View):
+    def get(self, request, id_category, id_dish):
+        selected_category = Category.objects.get(pk=id_category)
         dish_received = Dish.objects.filter(category=selected_category)
         categories = Category.objects.all()
         return render(request,
                       template_name='Category.html',
                       context={'selected_category': selected_category,
                                'dish_received': dish_received,
-                               'categories': categories})
+                               'categories': categories,
+                               'dish_id': id_dish
+                               })
 
 
 class DishView(View):
     def get(self, request, id):
         dishes = Dish.objects.get(pk=id)
+        # dishes = Dish.objects.get(pk=dishes)
+        ident = 1
         categories = Category.objects.all()
         return render(request,
                       template_name="Dishes.html",
                       context={'dishes': dishes,
-                               'categories': categories})
+                               'categories': categories,
+                               'identyficator': ident,
+                               })
 
 # def order_view(request, id):
 #     order = OrderDish.objects.get(pk=id)
