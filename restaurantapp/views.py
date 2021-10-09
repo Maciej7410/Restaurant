@@ -65,10 +65,6 @@ class ReservationView(View):
         )
 
 
-def menu_view(request):
-    categories = Category.objects.all()
-    dane = {'categories': categories}
-    return render(request, 'Menu.html', dane)
 
 class MenuView(View):
     def get(self, request):
