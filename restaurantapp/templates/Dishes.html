@@ -18,7 +18,7 @@
         <h1> id_categories{{ id_categories }} id_dish {{id_dish}} user id {{user.id}} </h1>
         <h1>Jak na razie wszystko bangla ;-)</h1>
         {% for res in reservation_user %}
-            <div> <a href="{{res.date_of_reservation}}">{{res.date_of_reservation}}</a></div>
+            <div> <a href="{{res.id}}">{{res.date_of_reservation}}</a></div>
         {% endfor %}
         <h1> {{id_user}}</h1>
 </form>
