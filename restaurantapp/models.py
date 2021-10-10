@@ -38,7 +38,7 @@ class Dish(Model):
         return self.price
 
 class Reservation(models.Model):
-    client = ForeignKey(Client, on_delete=DO_NOTHING, default=None)
+    client = ForeignKey(User, on_delete=DO_NOTHING, default=None)
     table = ForeignKey(Table, on_delete=DO_NOTHING)
     dishes = models.ManyToManyField(Dish)
     date_of_reservation = DateField()
