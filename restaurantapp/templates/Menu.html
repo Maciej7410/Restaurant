@@ -30,9 +30,22 @@
                 </li>
             </ul>
         </div>
+
+        {% if not user.is_authenticated %}
         <div>
-            <a href="{% url 'signin' %}"><button style="text-align: right" type="button" class="btn btn-primary">Sing in</button></a>
+            <a href="{% url 'signin' %}">
+                <button style="text-align: right" type="button" class="btn btn-primary">Sing in</button>
+            </a>
         </div>
+        {% elif  user.is_authenticated %}
+            <div style="background-color: #1acb1a; border-color: #1acb1a;" class="btn btn-primary">
+                {% if user.first_name %} {{ user.first_name }}
+                {% else %}Hi, {{ user.username }} {% endif %}
+            </div>
+            <div>
+                <a href="{% url 'logout' %}"><button type="button" class="btn btn-danger">Log Out</button></a>
+            </div>
+        {% endif %}
     </div>
 </nav>
 <body>
