@@ -122,9 +122,25 @@ class OrderView(View):
         dish = Dish.objects.get(id=id_dish)
         reservation.dishes.add(dish)
         reservation.save()
+        # DishView
+        selected_category = Category.objects.get(pk=id_category)
+        dish_received = Dish.objects.filter(category=selected_category)
+        categories = Category.objects.all()
+        dishes = Dish.objects.get(pk=id_dish)
+        categories = Category.objects.all()
+        id_user = int(request.user.id)
+        # End DishView
         return render(request,
-                      template_name='Ordered.html',
-                      context={'ordered': 'dish_list'})
+                      template_name="Ordered.html",
+                      context={'dishes': dishes,
+                               'categories': categories,
+                               'id_categories': id_category,
+                               'id_dish': id_dish,
+                               'selected_category': selected_category,
+                               'dish_received': dish_received,
+                               'reservation_user': id_reservation,
+                               'id_user': id_user,
+                               'ordered': 'dish_list'})
 
 
 class MainView(View):
