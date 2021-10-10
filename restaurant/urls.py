@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 
 from restaurantapp.views import (MainView, SignInView, RegisterUser, DishView, CategoryView,
-                                 LogOutUser, MenuView, OrderView, ReservationView, DeleteItem)
+                                 LogOutUser, MenuView, OrderView, ReservationView)
 
 
 
@@ -28,7 +28,6 @@ urlpatterns = [
     path('category/<id_category>/', CategoryView.as_view(), name='category_view'),
     path('category/dishes/<id_category>/<id_dish>/', DishView.as_view(), name='dish_view'),
     path('category/dishes/<id_category>/<id_dish>/<id_reservation>', OrderView.as_view(), name='order_view'),
-    path('category/dishes/<id_category>/<id_dish>/<id_reservation>/', DeleteItem.as_view(), name='delete_item'),
     path('order/', OrderView.as_view(), name='order_view'),
     path('reservation/', ReservationView.as_view(), name='reservation'),
     path('', MainView.as_view(), name='main'),

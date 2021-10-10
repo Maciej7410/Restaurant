@@ -13,9 +13,6 @@
         {% for dish in ordered %}
             <div>
                 {{ dish.name }} {{ dish.price }}
-                <form action="{% url 'delete_item' %}">
-                    <button>Usuń {{ delete }}</button>
-                </form>
             </div>
         {% endfor %}
         <div style="float: left">

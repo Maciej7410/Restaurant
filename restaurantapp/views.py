@@ -155,49 +155,32 @@ class OrderView(View):
                                'id_user': id_user,
                                'ordered': my_ordered_dishes,
                                'total': total,
-
                                })
 
 
-class DeleteItem(View):
-    def get(self, request, id_category, id_dish, id_reservation):
-        dish = Dish.objects.get(id=id_dish)
-        selected_category = Category.objects.get(pk=id_category)
-        dish_received = Dish.objects.filter(category=selected_category)
-        delete_item = Reservation.dishes.get(id=id_reservation)
+class MainView(View):
+    def get(self, request):
         return render(
             request,
-            template_name="Ordered.html",
-            context={
-                'delete': delete_item,
-                'id_categories': id_category,
-                'id_dish': id_dish,
-                'selected_category': selected_category,
-                'dish_received': dish_received,
-                'reservation_user': id_reservation,
+            template_name='Main.html',
+            context={'main': ''}
+        )
 
-            })
 
-    class MainView(View):
-        def get(self, request):
-            return render(
-                request,
-                template_name='Main.html',
-                context={'main': ''}
-            )
+class SignInView(LoginView):
+    template_name = 'Signin.html'
+    form_class = LoginForm
+    success_url = reverse_lazy('admin')
 
-    class SignInView(LoginView):
-        template_name = 'Signin.html'
-        form_class = LoginForm
-        success_url = reverse_lazy('admin')
 
-    class RegisterUser(CreateView):
-        template_name = 'Register.html'
-        form_class = RegisterView
-        success_url = reverse_lazy('main')
+class RegisterUser(CreateView):
+    template_name = 'Register.html'
+    form_class = RegisterView
+    success_url = reverse_lazy('main')
 
-    class LogOutUser(LogoutView):
-        template_name = 'Logout.html'
 
-        def log_out(self, request):
-            logout(request)
+class LogOutUser(LogoutView):
+    template_name = 'Logout.html'
+
+    def log_out(self, request):
+        logout(request)
