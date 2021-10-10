@@ -4,7 +4,7 @@
     <h5 class="card-title">Reservation places</h5>
 
     <div class="alert alert-primary" role="alert">
-        Welcom to the best restaurant in the world.
+        Welcome {{user_active}} to the best restaurant in the {{user.id}} world.
     </div>
 
 
@@ -35,10 +35,12 @@
                 <label for="table5">Table 5</label><br><br><br>
             </div>
         </div>
+
     </div>
 </form>
 <br>
-<h1> Term {{result}}  </h1>
+
+<h1> Term {{result}} user : {{user_active}} </h1>
 <h1>We invite in: {{start_date}} hour :  {{start_time}} end time : {{end_time}} </h1>
 
 {% endblock%}

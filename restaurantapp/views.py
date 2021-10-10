@@ -6,21 +6,21 @@ from restaurantapp.forms import LoginForm
 from django.views.generic import CreateView
 from restaurantapp.forms import RegisterView
 from django.urls import reverse_lazy
+
+import logging
+
 from restaurantapp.models import Category, Dish, Reservation
-from restaurantapp.models import Table, Category, Dish, Reservation, OrderDish, OrderList
-from restaurantapp.models import Table, Category, Dish, Reservation
 from datetime import timedelta
 import time
 
+logger = logging.getLogger(__name__)
 
 class ReservationView(View):
     def get(self, request):
         return render(
             request,
             template_name='Reservation.html',
-            context={
-                'user': 'Maciej'
-            }
+
         )
 
     def post(self, request):
@@ -33,8 +33,10 @@ class ReservationView(View):
         end_time = time.strptime(time_post, "%H:%M").tm_hour + 1
         # end_time = time.strptime(time_post, "%H:%M").tm_hour + 1
         table_post = int(request.POST.get('table', 'none'))
-
         registration_db = Reservation.objects.all()
+
+        user_active = int(request.user.id)
+        logger.warn(user_active)
         for start_date in registration_db:
             date_time_db = str(start_date.date_of_reservation) + ' ' + str(start_date.end_time)
             date_time_join_db = time.strptime(date_time_db, '%Y-%m-%d %H:%M:%S')
@@ -47,8 +49,8 @@ class ReservationView(View):
                 result = "Unsaved"
                 update = False
         if update == True:
-            deadline = Reservation(date_of_reservation=date_post, end_time=time_post, order_dish_id=1,
-                                   table_id=table_post, client_id=1, start_time=time_post)
+            deadline = Reservation(date_of_reservation=date_post, end_time=time_post,
+                                   table_id=table_post, client_id=user_active, start_time=time_post)
             deadline.save()
             result = "Saved"
 
@@ -61,7 +63,8 @@ class ReservationView(View):
                 'start_date': date_post,
                 'start_time': time_post,
                 'end_time': end_time,
-                'table_post': table_post
+                'table_post': table_post,
+                'user_active': user_active
             }
         )
 
@@ -71,39 +74,57 @@ class MenuView(View):
         categories = Category.objects.all()
         return render(request,
                       template_name='Menu.html',
-                      context={'categories': categories})
+                      context={'categories': categories
+                               })
 
 
 class CategoryView(View):
-    def get(self, request, id):
-        selected_category = Category.objects.get(pk=id)
+    def get(self, request, id_category):
+        selected_category = Category.objects.get(pk=id_category)
         dish_received = Dish.objects.filter(category=selected_category)
         categories = Category.objects.all()
         return render(request,
                       template_name='Category.html',
                       context={'selected_category': selected_category,
                                'dish_received': dish_received,
-                               'categories': categories})
+                               'categories': categories,
+                               'id_categories': id_category})
 
 
 class DishView(View):
-    def get(self, request, id):
-        dishes = Dish.objects.get(pk=id)
+    def get(self, request, id_category, id_dish):
+
+        selected_category = Category.objects.get(pk=id_category)
+        dish_received = Dish.objects.filter(category=selected_category)
         categories = Category.objects.all()
+        dishes = Dish.objects.get(pk=id_dish)
+        categories = Category.objects.all()
+        id_user = int(request.user.id)
+        # reservation_user = Reservation.objects.all()
+        reservation_user = Reservation.objects.filter(client__id=id_user)
+
         return render(request,
                       template_name="Dishes.html",
                       context={'dishes': dishes,
-                               'categories': categories})
-
+                               'categories': categories,
+                               'id_categories': id_category,
+                               'id_dish': id_dish,
+                               'selected_category': selected_category,
+                               'dish_received': dish_received,
+                               'reservation_user': reservation_user,
+                               'id_user': id_user
+                               })
 
 
 class OrderView(View):
-    def get(self, request, id):
-        actuals_order = Reservation.objects.find(id=id).first()
-        dish_list = actuals_order.dishes
+    def get(self, request, id_category, id_dish, id_reservation):
+        reservation = Reservation.objects.get(id=id_reservation)
+        dish = Dish.objects.get(id=id_dish)
+        reservation.dishes.add(dish)
+        reservation.save()
         return render(request,
                       template_name='Ordered.html',
-                      context={'ordered': dish_list})
+                      context={'ordered': 'dish_list'})
 
 
 class MainView(View):

@@ -1,15 +1,26 @@
 {% extends 'Menu.html' %}
 
 {% block dishes %}
-    {% if dishes %}
-        <h1>{{ dishes.name }}</h1>
+     {% if dish_received %}
+        {% for dish in dish_received %}
 
-        <h5>{{ dishes.description }}</h5>
-
+            <p xmlns="http://www.w3.org/1999/html"><a class="dish" href="{% url 'dish_view' id_categories dish.id %}">{{ dish.name }} </a> {{ dish.price }}</p>
+            <form method="post" action="{% url 'order_view' %}">
+                {% csrf_token %}
+                <button class="button" type="submit" name="dish_id" value="{{ dish.id }}">Dodaj</button>
+            </form>
+        {% endfor %}
     {% endif %}
 {% endblock %}
 {% block ordered %}
-    {% if order %}
-        <h1>{{ order }}</h1>
-    {% endif %}
+        <form method="get"></form>
+
+        <h1> id_categories{{ id_categories }} id_dish {{id_dish}} user id {{user.id}} </h1>
+        <h1>Jak na razie wszystko bangla ;-)</h1>
+        {% for res in reservation_user %}
+            <div> <a href="{{res.id}}">{{res.date_of_reservation}}</a></div>
+        {% endfor %}
+        <h1> {{id_user}}</h1>
+</form>
+
 {% endblock %}
