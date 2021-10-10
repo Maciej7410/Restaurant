@@ -15,6 +15,7 @@ import time
 
 logger = logging.getLogger(__name__)
 
+
 class ReservationView(View):
     def get(self, request):
         return render(
@@ -93,7 +94,6 @@ class CategoryView(View):
 
 class DishView(View):
     def get(self, request, id_category, id_dish):
-
         selected_category = Category.objects.get(pk=id_category)
         dish_received = Dish.objects.filter(category=selected_category)
         categories = Category.objects.all()
@@ -102,6 +102,7 @@ class DishView(View):
         id_user = int(request.user.id)
         # reservation_user = Reservation.objects.all()
         reservation_user = Reservation.objects.filter(client__id=id_user)
+        user_name = request.user.username
 
         return render(request,
                       template_name="Dishes.html",
@@ -112,7 +113,8 @@ class DishView(View):
                                'selected_category': selected_category,
                                'dish_received': dish_received,
                                'reservation_user': reservation_user,
-                               'id_user': id_user
+                               'id_user': id_user,
+                               'username': user_name
                                })
 
 
@@ -121,35 +123,81 @@ class OrderView(View):
         reservation = Reservation.objects.get(id=id_reservation)
         dish = Dish.objects.get(id=id_dish)
         reservation.dishes.add(dish)
+
         reservation.save()
+        # list of ordered dishes
+        my_ordered_dishes = reservation.dishes.all()
+        # delete item
+
+        # total Price
+        total = 0
+        for dish in reservation.dishes.all():
+            total += dish.price
+        # DishView
+        selected_category = Category.objects.get(pk=id_category)
+        dish_received = Dish.objects.filter(category=selected_category)
+        categories = Category.objects.all()
+        dishes = Dish.objects.get(pk=id_dish)
+        categories = Category.objects.all()
+        id_user = int(request.user.id)
+
+        # End DishView
+
         return render(request,
-                      template_name='Ordered.html',
-                      context={'ordered': 'dish_list'})
+                      template_name="Ordered.html",
+                      context={'dishes': dishes,
+                               'categories': categories,
+                               'id_categories': id_category,
+                               'id_dish': id_dish,
+                               'selected_category': selected_category,
+                               'dish_received': dish_received,
+                               'reservation_user': id_reservation,
+                               'id_user': id_user,
+                               'ordered': my_ordered_dishes,
+                               'total': total,
+
+                               })
 
 
-class MainView(View):
-    def get(self, request):
+class DeleteItem(View):
+    def get(self, request, id_category, id_dish, id_reservation):
+        dish = Dish.objects.get(id=id_dish)
+        selected_category = Category.objects.get(pk=id_category)
+        dish_received = Dish.objects.filter(category=selected_category)
+        delete_item = Reservation.dishes.get(id=id_reservation)
         return render(
             request,
-            template_name='Main.html',
-            context={'main': ''}
-        )
+            template_name="Ordered.html",
+            context={
+                'delete': delete_item,
+                'id_categories': id_category,
+                'id_dish': id_dish,
+                'selected_category': selected_category,
+                'dish_received': dish_received,
+                'reservation_user': id_reservation,
 
+            })
 
-class SignInView(LoginView):
-    template_name = 'Signin.html'
-    form_class = LoginForm
-    success_url = reverse_lazy('admin')
+    class MainView(View):
+        def get(self, request):
+            return render(
+                request,
+                template_name='Main.html',
+                context={'main': ''}
+            )
 
+    class SignInView(LoginView):
+        template_name = 'Signin.html'
+        form_class = LoginForm
+        success_url = reverse_lazy('admin')
 
-class RegisterUser(CreateView):
-    template_name = 'Register.html'
-    form_class = RegisterView
-    success_url = reverse_lazy('main')
+    class RegisterUser(CreateView):
+        template_name = 'Register.html'
+        form_class = RegisterView
+        success_url = reverse_lazy('main')
 
+    class LogOutUser(LogoutView):
+        template_name = 'Logout.html'
 
-class LogOutUser(LogoutView):
-    template_name = 'Logout.html'
-
-    def log_out(self, request):
-        logout(request)
+        def log_out(self, request):
+            logout(request)

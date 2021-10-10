@@ -3,19 +3,24 @@
      {% if dish_received %}
         {% for dish in dish_received %}
 
-            <p xmlns="http://www.w3.org/1999/html"><a class="dish" href="{% url 'dish_view' id_categories dish.id %}">{{ dish.name }} </a> {{ dish.price }}</p>
-            <form method="post" action="{% url 'order_view' %}">
-                {% csrf_token %}
-                <button class="button" type="submit" name="dish_id" value="{{ dish.id }}">Dodaj</button>
-            </form>
+            <p xmlns="http://www.w3.org/1999/html"><a class="dish" href="{% url 'order_view' id_categories dish.id reservation_user %}">{{ dish.name }} </a> {{ dish.price }}</p>
+
         {% endfor %}
     {% endif %}
 {% endblock %}
 
 {% block ordered %}
-
-        <div>
-        Jaśminka
+        {% for dish in ordered %}
+            <div>
+                {{ dish.name }} {{ dish.price }}
+                <form action="{% url 'delete_item' %}">
+                    <button>Usuń {{ delete }}</button>
+                </form>
+            </div>
+        {% endfor %}
+        <div style="float: left">
+            <h3>Total Price: {{ total }} </h3>
         </div>
+
 
 {% endblock %}
