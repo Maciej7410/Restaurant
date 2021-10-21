@@ -1,0 +1,15 @@
+{% extends 'MenuOrderView.html' %}
+
+{% block dishes %}
+    {% if dish_received %}
+        {% for dish in dish_received %}
+
+            <p xmlns="http://www.w3.org/1999/html"><a class="dish" href="{% url 'category_order_view' id_reservation id_categories  %}">{{ dish.name }} </a> {{ dish.price }}</p>
+            <form method="post" action="{% url 'category_order_view' id_reservation id_categories  %}">
+                {% csrf_token %}
+                <button class="button" type="submit" name="dish_id" value="{{ dish.id }}">Dodaj</button>
+            </form>
+        {% endfor %}
+    {% endif %}
+
+{% endblock %}

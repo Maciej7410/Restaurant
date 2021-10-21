@@ -1,0 +1,24 @@
+{% extends 'MenuOrderView.html' %}
+{% block dishes %}
+     {% if dish_received %}
+        {% for dish in dish_received %}
+
+            <p xmlns="http://www.w3.org/1999/html"><a class="dish" href="{% url 'dish_order_view' id_reservation id_categories dish.id  %}">{{ dish.name }} </a> {{ dish.price }}</p>
+
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+
+{% block ordered %}
+
+        {% for dish in ordered %}
+            <div>
+                {{ dish.name }} {{ dish.price }}
+            </div>
+        {% endfor %}
+        <div style="float: left">
+            <h3>Total Price: {{ total }} </h3>
+        </div>
+
+
+{% endblock %}

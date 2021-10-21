@@ -17,7 +17,8 @@ from django.contrib import admin
 from django.urls import path
 
 from restaurantapp.views import (MainView, SignInView, RegisterUser, DishView, CategoryView,
-                                 LogOutUser, MenuView, OrderView, ReservationView)
+                                 LogOutUser, MenuView, OrderView, ReservationView,MenuReservationOrderView,
+                                 CategoryOrderView, DishOrderView)
 
 
 
@@ -25,6 +26,7 @@ from restaurantapp.views import (MainView, SignInView, RegisterUser, DishView, C
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('menu/', MenuView.as_view(), name='menu_view'),
+    # path('menu/<reservation_get_id>', ReservationIdSend.as_view(), name='menu_view'),
     path('category/<id_category>/', CategoryView.as_view(), name='category_view'),
     path('category/dishes/<id_category>/<id_dish>/', DishView.as_view(), name='dish_view'),
     path('category/dishes/<id_category>/<id_dish>/<id_reservation>', OrderView.as_view(), name='order_view'),
@@ -34,5 +36,10 @@ urlpatterns = [
     path('logout/', LogOutUser.as_view(), name='logout'),
     path('main/', MainView.as_view(), name='main'),
     path('login/', SignInView.as_view(), name='signin'),
-    path('register/', RegisterUser.as_view(), name='register')
+    path('register/', RegisterUser.as_view(), name='register'),
+    path('menu_order/<id_reservation>', MenuReservationOrderView.as_view(), name='menu_reservation_order'),
+    path('category_order/<id_reservation>/<id_category>', CategoryOrderView.as_view(), name='category_order_view'),
+    path('dishes_order/<id_reservation>/<id_category>/<id_dish>', DishOrderView.as_view(), name='dish_order_view'),
+
+
 ]

@@ -49,11 +49,16 @@ class ReservationView(View):
                     table_post == start_date.table_id:
                 result = "Unsaved"
                 update = False
+
         if update == True:
             deadline = Reservation(date_of_reservation=date_post, end_time=time_post,
                                    table_id=table_post, client_id=user_active, start_time=time_post)
+
             deadline.save()
             result = "Saved"
+
+        id_reser = Reservation.objects.get(date_of_reservation=date_post, end_time=time_post, table_id=table_post,
+                                           client_id=user_active, start_time=time_post)
 
         return render(
             request,
@@ -65,17 +70,97 @@ class ReservationView(View):
                 'start_time': time_post,
                 'end_time': end_time,
                 'table_post': table_post,
-                'user_active': user_active
+                'user_active': user_active,
+                'reservation_id': id_reser,
             }
         )
 
 
-class MenuView(View):
-    def get(self, request):
+# class ReservationIdSend(View):
+#     def get(self, request,reservation_id ):
+#         reservation = Reservation.objects.get(pk=reservation_id)
+#         return render(
+#             request,
+#             template_name='Menu.html' ,
+#             context={
+#                 'reservation': reservation
+#             }
+#         )
+
+class MenuReservationOrderView(View):
+    def get(self, request, id_reservation):
+        reservation = Reservation.objects.get(pk=id_reservation)
         categories = Category.objects.all()
+        return render(
+            request,
+            template_name='MenuOrderView.html',
+            context={
+                'reservation': reservation,
+                'categories': categories,
+            }
+        )
+
+class CategoryOrderView(View):
+    def get(self, request, id_reservation, id_category):
+        reservation = Reservation.objects.get(pk=id_reservation)
+        categories_id = Category.objects.get(pk=id_category)
+        dish_received = Dish.objects.filter(category=categories_id)
+        categories = Category.objects.all()
+        return render(
+            request,
+            template_name='CategoryOrderView.html',
+            context={
+                'reservation': reservation,
+                'categories': categories,
+                'selected_category': categories_id,
+                'dish_received': dish_received,
+                'id_categories': id_category})
+
+
+class DishOrderView(View):
+    def get(self, request, id_reservation, id_category, id_dish):
+        reservation = Reservation.objects.get(pk=id_reservation)
+        categories_id = Category.objects.get(pk=id_category)
+        dish_received = Dish.objects.filter(category=categories_id)
+        categories = Category.objects.all()
+
+        dish = Dish.objects.get(id=id_dish)
+        reservation.dishes.add(dish)
+        reservation.save()
+
+        my_ordered_dishes = reservation.dishes.all()
+        total = 0
+        for dish in reservation.dishes.all():
+            total += dish.price
+
+        return render(
+            request,
+            template_name='CategoryOrderView.html',
+            context={
+                'reservation': reservation,
+                'categories': categories,
+                'selected_category': categories_id,
+                'dish_received': dish_received,
+                'id_categories': id_category,
+                'ordered': my_ordered_dishes,
+                'total': total,
+
+            })
+
+
+
+
+
+
+
+
+class MenuView(View):
+    def get(self, request, ):
+        categories = Category.objects.all()
+
         return render(request,
                       template_name='Menu.html',
-                      context={'categories': categories
+                      context={'categories': categories,
                                })
 
 

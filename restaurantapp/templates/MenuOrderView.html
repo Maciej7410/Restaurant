@@ -59,7 +59,7 @@
     <div class="navigation_table">
         <h2>KATEGORIE</h2>
         {% for category in categories %}
-            <p><a class="category" href="{% url 'category_view' category.id %}"> {{ category.name }}</a></p>
+            <p><a class="category" href="{% url 'category_order_view' reservation.id category.id %}"> {{ category.name }}</a></p>
         {% endfor %}
 
     </div>
@@ -70,15 +70,9 @@
     <div class="order_table">
         <h2>TWOJE ZAMÓWIENIE</h2>
         {% block ordered %}
-            <form method="get"></form>
 
-            <h3 style="text-align: center;">Choose your reservation {{ user_name }}</h3>
+            <h3 style="text-align: center;"> Your reservation {{ reservation.id }} {{ reservation.date_of_reservation }} {{ reservation.start_time }} Table: {{ reservation.table.id }}</h3>
 
-            {% for res in reservation_user %}
-                <div><a href="{{ res.id }}">{{ res.date_of_reservation }}</a></div>
-            {% endfor %}
-
-            </form>
 
         {% endblock %}
     </div>
