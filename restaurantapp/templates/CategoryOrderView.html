@@ -11,5 +11,16 @@
             </form>
         {% endfor %}
     {% endif %}
+{% endblock %}
 
+{% block ordered %}
+        <h3 style="text-align: center;"> Your reservation {{ reservation.id }} {{ reservation.date_of_reservation }} {{ reservation.start_time }} Table: {{ reservation.table.id }}</h3><br>
+        {% for dish in ordered %}
+            <div>
+                {{ dish.name }} {{ dish.price }}
+            </div>
+        {% endfor %}
+        <div style="float: left">
+            <h3>Total Price: {{ total }} </h3>
+        </div>
 {% endblock %}

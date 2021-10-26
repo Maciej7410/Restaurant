@@ -17,8 +17,8 @@ from django.contrib import admin
 from django.urls import path
 
 from restaurantapp.views import (MainView, SignInView, RegisterUser, DishView, CategoryView,
-                                 LogOutUser, MenuView, OrderView, ReservationView,MenuReservationOrderView,
-                                 CategoryOrderView, DishOrderView)
+                                 LogOutUser, MenuView, ReservationView,MenuReservationOrderView,
+                                 CategoryOrderView, DishOrderView, OrderView)
 
 
 

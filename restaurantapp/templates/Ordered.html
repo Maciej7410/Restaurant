@@ -3,7 +3,7 @@
      {% if dish_received %}
         {% for dish in dish_received %}
 
-            <p xmlns="http://www.w3.org/1999/html"><a class="dish" href="{% url 'order_view' id_categories dish.id reservation_user %}">{{ dish.name }} </a> {{ dish.price }}</p>
+            <p xmlns="http://www.w3.org/1999/html"> {{ dish.name }}{{ dish.price }}</p>
 
         {% endfor %}
     {% endif %}

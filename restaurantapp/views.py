@@ -106,6 +106,10 @@ class CategoryOrderView(View):
         categories_id = Category.objects.get(pk=id_category)
         dish_received = Dish.objects.filter(category=categories_id)
         categories = Category.objects.all()
+        my_ordered_dishes = reservation.dishes.all()
+        total = 0
+        for dish in reservation.dishes.all():
+            total += dish.price
         return render(
             request,
             template_name='CategoryOrderView.html',
@@ -115,7 +119,10 @@ class CategoryOrderView(View):
                 'categories': categories,
                 'selected_category': categories_id,
                 'dish_received': dish_received,
-                'id_categories': id_category})
+                'id_categories': id_category,
+                'ordered': my_ordered_dishes,
+                'total': total,
+            })
 
 
 class DishOrderView(View):
