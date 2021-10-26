@@ -41,5 +41,4 @@ urlpatterns = [
     path('category_order/<id_reservation>/<id_category>', CategoryOrderView.as_view(), name='category_order_view'),
     path('dishes_order/<id_reservation>/<id_category>/<id_dish>', DishOrderView.as_view(), name='dish_order_view'),
 
-
 ]

@@ -111,6 +111,7 @@ class CategoryOrderView(View):
             template_name='CategoryOrderView.html',
             context={
                 'reservation': reservation,
+                'id_reservation': id_reservation,
                 'categories': categories,
                 'selected_category': categories_id,
                 'dish_received': dish_received,
@@ -138,6 +139,7 @@ class DishOrderView(View):
             template_name='CategoryOrderView.html',
             context={
                 'reservation': reservation,
+                'id_reservation': id_reservation,
                 'categories': categories,
                 'selected_category': categories_id,
                 'dish_received': dish_received,
