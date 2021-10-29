@@ -40,7 +40,8 @@ class Dish(Model):
 class Reservation(models.Model):
     client = ForeignKey(User, on_delete=DO_NOTHING, default=None)
     table = ForeignKey(Table, on_delete=DO_NOTHING)
-    dishes = models.ManyToManyField(Dish)
+    dishes = models.ManyToManyField(Dish, unique=False)
     date_of_reservation = DateField()
     start_time = TimeField()
     end_time = TimeField()
+

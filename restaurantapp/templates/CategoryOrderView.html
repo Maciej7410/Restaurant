@@ -17,7 +17,12 @@
         <h3 style="text-align: center;"> Your reservation {{ reservation.id }} {{ reservation.date_of_reservation }} {{ reservation.start_time }} Table: {{ reservation.table.id }}</h3><br>
         {% for dish in ordered %}
             <div>
-                {{ dish.name }} {{ dish.price }}
+{#                <p xmlns="http://www.w3.org/1999/html"><a class="dish"> {{ dish.name }} {{ dish.price }}</a></p>#}
+                <p xmlns="http://www.w3.org/1999/html"><a class="dish" href="{% url 'dish_order_view_delete' id_reservation id_categories dish.id  %}">{{ dish.name }} {{ dish.price }} </a></p>
+                <form method="post" action="{% url 'dish_order_view_delete' id_reservation id_categories dish.id  %}">
+                    {% csrf_token %}
+
+                </form>
             </div>
         {% endfor %}
         <div style="float: left">

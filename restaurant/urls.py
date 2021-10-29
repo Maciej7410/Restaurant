@@ -18,7 +18,7 @@ from django.urls import path
 
 from restaurantapp.views import (MainView, SignInView, RegisterUser, DishView, CategoryView,
                                  LogOutUser, MenuView, ReservationView,MenuReservationOrderView,
-                                 CategoryOrderView, DishOrderView, OrderView)
+                                 CategoryOrderView, DishOrderView, OrderView, DishOrderViewDelete)
 
 
 
@@ -40,5 +40,6 @@ urlpatterns = [
     path('menu_order/<id_reservation>', MenuReservationOrderView.as_view(), name='menu_reservation_order'),
     path('category_order/<id_reservation>/<id_category>', CategoryOrderView.as_view(), name='category_order_view'),
     path('dishes_order/<id_reservation>/<id_category>/<id_dish>', DishOrderView.as_view(), name='dish_order_view'),
+    path('dishes_order_delete/<id_reservation>/<id_category>/<id_dish>', DishOrderViewDelete.as_view(), name='dish_order_view_delete'),
 
 ]

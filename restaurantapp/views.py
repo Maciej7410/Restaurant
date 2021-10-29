@@ -156,7 +156,36 @@ class DishOrderView(View):
 
             })
 
+class DishOrderViewDelete(View):
+    def get(self, request, id_reservation, id_category, id_dish):
+        reservation = Reservation.objects.get(pk=id_reservation)
+        categories_id = Category.objects.get(pk=id_category)
+        dish_received = Dish.objects.filter(category=categories_id)
+        categories = Category.objects.all()
 
+        dish = Dish.objects.get(id=id_dish)
+        reservation.dishes.remove(dish)
+        reservation.save()
+
+        my_ordered_dishes = reservation.dishes.all()
+        total = 0
+        for dish in reservation.dishes.all():
+            total += dish.price
+
+        return render(
+            request,
+            template_name='CategoryOrderView.html',
+            context={
+                'reservation': reservation,
+                'id_reservation': id_reservation,
+                'categories': categories,
+                'selected_category': categories_id,
+                'dish_received': dish_received,
+                'id_categories': id_category,
+                'ordered': my_ordered_dishes,
+                'total': total,
+
+            })
 
 
 
@@ -250,6 +279,10 @@ class OrderView(View):
                                'ordered': my_ordered_dishes,
                                'total': total,
                                })
+
+
+
+
 
 
 class MainView(View):

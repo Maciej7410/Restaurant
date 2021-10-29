@@ -12,7 +12,7 @@
     {% csrf_token %}
     <div class="container">
         <div class="row justify-content-center">
-            <div class="6">
+            <div class="col-6">
 <!--                <input style='border: none ;width:60px;' type="text" name="a1" value="a">-->
                 <label for="date">Data rezerwacji :</label>
                 <input style='border: none;' type="date" id="date" name="date" value="2021-10-02" min="2021-10-02" max="2021-12-31" ><br>
@@ -22,7 +22,7 @@
                 <input style='border: none;' type="number" id="number" name="number" value="3" min="2" max="8" step="1" ><br>
                 <input class="buttion" type="submit" >
             </div>
-            <div class="6">
+            <div class="col-6">
                 <input type="radio" id='table1' name="table" value="1" checked="True" >
                 <label for="table1">Table 1</label><br>
                 <input type="radio" id='table2' name="table" value="2">
